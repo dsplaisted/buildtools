@@ -43,8 +43,7 @@ namespace Xunit.ConsoleClient
                 result.Add(new XunitProjectAssembly
                 {
                     AssemblyFilename = Path.GetFullPath(assembly.Item1),
-                    ConfigFilename = assembly.Item2 != null ? Path.GetFullPath(assembly.Item2) : null,
-                    ShadowCopy = true
+                    ConfigFilename = assembly.Item2 != null ? Path.GetFullPath(assembly.Item2) : null
                 });
 
             return result;
@@ -162,12 +161,6 @@ namespace Xunit.ConsoleClient
                 {
                     GuardNoOptionValue(option);
                     AppVeyor = true;
-                }
-                else if (optionName == "-noshadow")
-                {
-                    GuardNoOptionValue(option);
-                    foreach (var assembly in project.Assemblies)
-                        assembly.ShadowCopy = false;
                 }
                 else if (optionName == "-trait")
                 {

@@ -37,7 +37,7 @@
   </metadata>
   <files>
     <!-- xunit runner for .NET Core -->
-    <file src="xunit.console.netcore\xunit.console.netcore.exe" target="lib\aspnetcore50" />
+    <file src="xunit.console.netcore\xunit.console.netcore.exe" target="lib\dnxcore50" />
   </files>
   
 </package>
