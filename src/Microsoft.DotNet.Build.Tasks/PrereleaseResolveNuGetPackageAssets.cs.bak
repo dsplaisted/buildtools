@@ -210,7 +210,8 @@ namespace Microsoft.DotNet.Build.Tasks
             }
 
             JObject lockFile;
-            using (var streamReader = new StreamReader(new FileStream(ProjectLockFile, FileMode.Open, FileAccess.Read, FileShare.Read)))
+            using (var stream = File.OpenRead(ProjectLockFile))
+            using (var streamReader = new StreamReader(stream))
             {
                 lockFile = JObject.Load(new JsonTextReader(streamReader));
             }

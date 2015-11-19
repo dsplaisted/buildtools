@@ -58,6 +58,15 @@ namespace Microsoft.DotNet.Build.Tasks {
                 resourceCulture = value;
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The preprocessor token &apos;{0}&apos; has been given more than one value. Choosing &apos;{1}&apos; as the value..
+        /// </summary>
+        internal static string DuplicatePreprocessorToken {
+            get {
+                return ResourceManager.GetString("DuplicatePreprocessorToken", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to The dependency section {0} from the project.lock.json could not be parsed..
@@ -78,11 +87,29 @@ namespace Microsoft.DotNet.Build.Tasks {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t find the required information in the lock file. Make sure you have {0} mentioned in your targets..
+        ///   Looks up a localized string similar to Your project is not referencing the &quot;{0}&quot; framework. Add a reference to &quot;{0}&quot; in the &quot;frameworks&quot; section of your project.json, and then re-run NuGet restore..
         /// </summary>
-        internal static string MissingEntryInLockFile {
+        internal static string MissingFramework {
             get {
-                return ResourceManager.GetString("MissingEntryInLockFile", resourceCulture);
+                return ResourceManager.GetString("MissingFramework", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your project.json doesn&apos;t list &apos;{0}&apos; as a targeted runtime. You should add &apos;{1}&apos; inside your &quot;runtimes&quot; section in your project.json, and then re-run NuGet restore..
+        /// </summary>
+        internal static string MissingRuntimeInRuntimesSection {
+            get {
+                return ResourceManager.GetString("MissingRuntimeInRuntimesSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your project.json doesn&apos;t have a runtimes section. You should add &apos;{0}&apos; to your project.json and then re-run NuGet restore..
+        /// </summary>
+        internal static string MissingRuntimesSection {
+            get {
+                return ResourceManager.GetString("MissingRuntimesSection", resourceCulture);
             }
         }
         
@@ -112,13 +139,31 @@ namespace Microsoft.DotNet.Build.Tasks {
                 return ResourceManager.GetString("PackageFolderNotFound", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} property must be set in order to consume preprocessed content..
+        /// </summary>
+        internal static string PreprocessedDirectoryNotSet {
+            get {
+                return ResourceManager.GetString("PreprocessedDirectoryNotSet", resourceCulture);
+            }
+        }
+                
         /// <summary>
         ///   Looks up a localized string similar to Resolved references from {0}:.
         /// </summary>
         internal static string ResolvedReferencesFromPackage {
             get {
                 return ResourceManager.GetString("ResolvedReferencesFromPackage", resourceCulture);
+            }
+        }
+
+                /// <summary>
+        ///   Looks up a localized string similar to The token &apos;{0}&apos; is unrecognized..
+        /// </summary>
+        internal static string UnspecifiedToken {
+            get {
+                return ResourceManager.GetString("UnspecifiedToken", resourceCulture);
             }
         }
     }
