@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-  <UsingTask TaskName="PrereleaseResolveNuGetPackageAssets" AssemblyFile="$(ToolsDir)Microsoft.DotNet.Build.Tasks.dll"/>
-
+  
   <PropertyGroup>
+    <!-- Override in-box Microsoft.NuGet.targets with ours -->
+    <NuGetTargets>$(MSBuildThisFileDirectory)Microsoft.NuGet.targets</NuGetTargets>
+    
     <ProjectJson Condition="'$(ProjectJson)'=='' and Exists('$(MSBuildProjectDirectory)/project.json')">$(MSBuildProjectDirectory)/project.json</ProjectJson>
     <ProjectLockJson Condition="Exists('$(ProjectJson)') and '$(ProjectLockJson)'==''">$(MSBuildProjectDirectory)/project.lock.json</ProjectLockJson>
     <ResolveNugetProjectFile Condition="'$(ResolveNugetProjectFile)' == ''">$(MSBuildProjectFullPath)</ResolveNugetProjectFile>
     <RestorePackages Condition="'$(RestorePackages)'!='false' and Exists('$(ProjectJson)') and '$(DesignTimeBuild)' != 'true'">true</RestorePackages>
-    <PrereleaseResolveNuGetPackages Condition="'$(PrereleaseResolveNuGetPackages)'!='false' and Exists('$(ProjectJson)')">true</PrereleaseResolveNuGetPackages>
+    <ResolveNuGetPackages Condition="'$(ResolveNuGetPackages)'!='false' and Exists('$(ProjectJson)')">true</ResolveNuGetPackages>
+    <ResolveNuGetPackages Condition="'$(ResolveNuGetPackages)'==''">false</ResolveNuGetPackages>
 
-    <!-- 
-        For now, prevent built-in task (if available) from running.
-        More changes are needed to light up on their availability
-        and use them instead of what we have here. See buildtools
-        issue #192.
-     -->
-    <ResolveNugetPackages>false</ResolveNugetPackages>
   </PropertyGroup>
 
   <!-- Restoring packages during a background (designtime) build will cause VS 2015 (v14) to get into an endless loop of resolving references. -->
@@ -29,14 +24,14 @@
     <Exec Condition="Exists('$(ProjectJson)')" Command="$(DnuRestoreCommand) &quot;$(ProjectJson)&quot;" StandardOutputImportance="Low" CustomErrorRegularExpression="^Unable to locate .*" />
   </Target>
 
-  <ItemGroup Condition="'$(ResolvePackages)'=='true' or '$(PrereleaseResolveNuGetPackages)'=='true'">
+  <ItemGroup Condition="'$(ResolvePackages)'=='true' or '$(ResolveNuGetPackages)'=='true'">
     <CustomAdditionalCompileInputs Condition="Exists('$(ProjectJson)')" Include="$(ProjectJson)" />
   </ItemGroup>
 
   <PropertyGroup>
     <ResolveAssemblyReferencesDependsOn>
       $(ResolveAssemblyReferencesDependsOn);
-      ResolveNuGetPackages;
+      ReplacePackageReferencesWithProjects;
     </ResolveAssemblyReferencesDependsOn>
     
     <!-- temporarily accept the old name NuGetTargetFrameworkMoniker until all projects are moved forward -->
@@ -44,45 +39,14 @@
     <!-- We use dotnet as the framework for our reference assemblies, in the future we'll move to 
          targets that are closer to what shipped in Dev14 and we won't need to special case this.-->
     <NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == '' and '$(IsReferenceAssembly)' == 'true'">.NETPlatform,Version=v5.0</NuGetTargetMoniker>
-    <UseTargetPlatformAsNuGetTargetMoniker Condition="'$(UseTargetPlatformAsNuGetTargetMoniker)' == '' AND '$(TargetFrameworkMoniker)' == '.NETCore,Version=v5.0'">true</UseTargetPlatformAsNuGetTargetMoniker>
-    <NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == '' AND '$(UseTargetPlatformAsNuGetTargetMoniker)' == 'true'">$(TargetPlatformIdentifier),Version=v$([System.Version]::Parse('$(TargetPlatformMinVersion)').ToString(3))</NuGetTargetMoniker>
-    <NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == '' AND '$(UseTargetPlatformAsNuGetTargetMoniker)' != 'true'">$(TargetFrameworkMoniker)</NuGetTargetMoniker>
 
-
-    <BaseNuGetRuntimeIdentifier Condition="'$(BaseNuGetRuntimeIdentifier)' == '' and '$(TargetPlatformIdentifier)' == 'UAP'">win10</BaseNuGetRuntimeIdentifier>
-    <BaseNuGetRuntimeIdentifier Condition="'$(BaseNuGetRuntimeIdentifier)' == ''">win</BaseNuGetRuntimeIdentifier>
-    <CopyNuGetImplementations Condition="'$(CopyNuGetImplementations)' == '' and '$(OutputType)' != 'library' and ('$(OutputType)' != 'winmdobj' or '$(AppxPackage)' == 'true')">true</CopyNuGetImplementations>
+    <!-- Temporary workaround -->
+    <NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == '.NETPortable,Version=v4.5,Profile=Profile7'">DNXCore,Version=v5.0</NuGetTargetMoniker>
   </PropertyGroup>
 
-  <!-- If a RuntimeIndentifier wasn't already specified, let's go generate it -->
-  <PropertyGroup Condition="'$(NuGetRuntimeIdentifier)' == '' and '$(CopyNuGetImplementations)' == 'true'">
-    <_NuGetRuntimeIdentifierWithoutAot>$(BaseNuGetRuntimeIdentifier)-$(PlatformTarget.ToLower())</_NuGetRuntimeIdentifierWithoutAot>
-    <NuGetRuntimeIdentifier>$(_NuGetRuntimeIdentifierWithoutAot)</NuGetRuntimeIdentifier>
-    <NuGetRuntimeIdentifier Condition="'$(UseDotNetNativeToolchain)' == 'true'">$(_NuGetRuntimeIdentifierWithoutAot)-aot</NuGetRuntimeIdentifier>
-  </PropertyGroup>
-
-  <Target Name="ResolveNuGetPackages"
-          Condition="'$(PrereleaseResolveNuGetPackages)'=='true'">
-
-    <PropertyGroup>
-      <!-- Temporary workaround -->
-      <NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == '.NETPortable,Version=v4.5,Profile=Profile7'">DNXCore,Version=v5.0</NuGetTargetMoniker>
-    </PropertyGroup>
-
-    <PrereleaseResolveNuGetPackageAssets Condition="Exists('$(ProjectLockJson)')"
-                               AllowFallbackOnTargetSelection="true"
-                               IncludeFrameworkReferences="false"
-                               NuGetPackagesDirectory="$(PackagesDir)"
-                               RuntimeIdentifier="$(NuGetRuntimeIdentifier)"
-                               ProjectLanguage="$(Language)"
-                               ProjectLockFile="$(ProjectLockJson)"
-                               TargetMonikers="$(NuGetTargetMoniker)"
-                               OmitTransitiveCompileReferences="$(OmitTransitiveCompileReferences)">
-      <Output TaskParameter="ResolvedAnalyzers" ItemName="Analyzer" />
-      <Output TaskParameter="ResolvedReferences" ItemName="Reference" />
-      <Output TaskParameter="ResolvedCopyLocalItems" ItemName="ReferenceCopyLocalPaths" />
-    </PrereleaseResolveNuGetPackageAssets>
-
+  <Target Name="ReplacePackageReferencesWithProjects"
+          DependsOnTargets="ResolveNuGetPackageAssets"
+          Condition="'$(ResolveNuGetPackages)' == 'true' and exists('$(ProjectLockFile)')">
     <!-- We may have an indirect package reference that we want to replace with a project reference -->
     <ItemGroup>
       <!-- Intersect project-refs with package-refs -->

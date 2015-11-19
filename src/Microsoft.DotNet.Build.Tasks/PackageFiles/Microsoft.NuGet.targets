@@ -1,7 +1,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="Microsoft.NuGet.Build.Tasks.ResolveNuGetPackageAssets" AssemblyFile="Microsoft.NuGet.Build.Tasks.dll" />
+  <UsingTask TaskName="PrereleaseResolveNuGetPackageAssets" AssemblyFile="$(ToolsDir)Microsoft.DotNet.Build.Tasks.dll"/>
 
   <PropertyGroup Condition="'$(ProjectLockFile)' == ''">
+    <NuGetTargetsImported>true</NuGetTargetsImported>
+    
     <_ProjectSpecificProjectJsonFile>$(MSBuildProjectName).project.json</_ProjectSpecificProjectJsonFile>
     <ProjectLockFile Condition="Exists('$(_ProjectSpecificProjectJsonFile)')">$(MSBuildProjectName).project.lock.json</ProjectLockFile>
     <ProjectLockFile Condition="!Exists('$(_ProjectSpecificProjectJsonFile)')">project.lock.json</ProjectLockFile>
@@ -106,7 +108,8 @@
   </PropertyGroup>
 
   <Target Name="ResolveNuGetPackageAssets" DependsOnTargets="$(ResolveNuGetPackageAssetsDependsOn)" Condition="'$(ResolveNuGetPackages)' == 'true' and exists('$(ProjectLockFile)')">
-    <ResolveNuGetPackageAssets AllowFallbackOnTargetSelection="$(DesignTimeBuild)"
+    <PrereleaseResolveNuGetPackageAssets
+                               AllowFallbackOnTargetSelection="$(DesignTimeBuild)"
                                ContinueOnError="$(ContinueOnError)"
                                IncludeFrameworkReferences="$(IncludeFrameworkReferencesFromNuGet)"
                                NuGetPackagesDirectory="$(NuGetPackagesDirectory)"
@@ -123,7 +126,7 @@
       <Output TaskParameter="ReferencedPackages" ItemName="ReferencedNuGetPackages" />
       <Output TaskParameter="ContentItems" ItemName="_NuGetContentItems" />
       <Output TaskParameter="FileWrites" ItemName="FileWrites" />
-    </ResolveNuGetPackageAssets>
+    </PrereleaseResolveNuGetPackageAssets>
 
     <ItemGroup>
       <!-- Remove exact references, such as if a package had a framework reference to 'System' that we already have -->

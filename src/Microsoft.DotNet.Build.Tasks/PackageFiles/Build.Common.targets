@@ -38,19 +38,7 @@
         APIVersion - Major.Minor assembly version for the project
   -->
   <Import Project="$(MSBuildThisFileDirectory)ReferenceAssemblies.targets" Condition="'$(ExcludeReferenceAssembliesImport)'!='true'" />
-  
-  <!-- 
-    Import the default target framework targets.
-    
-    Inputs:
-      TargetFrameworkIdentifier - If not set defaults to .NETPortable
-      TargetFrameworkVersion - If not set defaults to v4.5
-      TargetFrameworkProfile - If not set defaults to Profile7
-    
-    This Imports portable.csharp/visualbasic.targets if .NETPortable is the identifier otherwise it imports csharp/visualbasic.targets  
-  -->
-  <Import Project="$(MSBuildThisFileDirectory)FrameworkTargeting.targets" Condition="'$(ExcludeFrameworkTargetingImport)'!='true'" />
-  
+
   <!-- 
     Import the default package restore and resolve targets 
   
@@ -64,10 +52,28 @@
         DnuRestoreCommand - Used to restore the project packages from project.json
         PackagesDir - Packages are restored to and resolved from this location
 
-      Depends on properties set by csharp/visualbasic.targets so needs to be imported after.
+      Sets NuGetTargets property to override version of Microsoft.NuGet.targets imported as part of common targets, so needs to be imported before.
+      Previously this said it depends on properties set by csharp/visualbasic.targets so needs to be imported after - this does not seem to be true
   -->
   <Import Project="$(MSBuildThisFileDirectory)packageresolve.targets" Condition="'$(ExcludePackageResolveImport)'!='true'" />
+  
+  <!-- 
+    Import the default target framework targets.
+    
+    Inputs:
+      TargetFrameworkIdentifier - If not set defaults to .NETPortable
+      TargetFrameworkVersion - If not set defaults to v4.5
+      TargetFrameworkProfile - If not set defaults to Profile7
+    
+    This Imports portable.csharp/visualbasic.targets if .NETPortable is the identifier otherwise it imports csharp/visualbasic.targets  
+  -->
+  <Import Project="$(MSBuildThisFileDirectory)FrameworkTargeting.targets" Condition="'$(ExcludeFrameworkTargetingImport)'!='true'" />
 
+  <!-- 
+    Import our version of Microsoft.NuGet.targets if it hasn't already been imported
+  -->
+  <Import Project="$(NuGetTargets)" Condition="'$(ExcludePackageResolveImport)'!='true' AND '$(NuGetTargetsImported)'!='true'" />
+  
   <!-- 
     Import the default SR resource generation targets 
   
