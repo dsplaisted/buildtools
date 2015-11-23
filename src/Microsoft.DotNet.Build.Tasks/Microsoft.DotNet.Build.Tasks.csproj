@@ -61,10 +61,10 @@
       <NuProjVersion>0.10.4-beta-gf7fc34e7d8</NuProjVersion>
     </PropertyGroup>
     <ItemGroup>
-      <PackageFiles Include="$(MSBuildThisProjectDirectory)PackageFiles\**\*.*" />
+      <PackageFiles Include="$(SourceDir)Microsoft.DotNet.Build\PackageFiles\**\*.*" />
       <NuProjFiles Include="$(PackagesDir)NuProj\$(NuProjVersion)\tools\**\*.*" />
     </ItemGroup>
-    <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(OutputPath)\PackageFiles\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(OutputPath)\..\Microsoft.DotNet.Build\PackageFiles\%(RecursiveDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(NuProjFiles)" DestinationFolder="$(OutputPath)\NuProj\%(RecursiveDir)" SkipUnchangedFiles="true" />
   </Target>
 </Project>
