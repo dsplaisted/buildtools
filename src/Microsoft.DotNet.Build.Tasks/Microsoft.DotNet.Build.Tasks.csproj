@@ -52,6 +52,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <NuSpecFile Include="$(SourceDir)\nuget\Microsoft.DotNet.BuildTools.nuspec">
+      <Visible>False</Visible>
+    </NuSpecFile>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), dir.targets))\dir.targets" />

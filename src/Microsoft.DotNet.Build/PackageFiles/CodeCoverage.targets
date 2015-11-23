@@ -77,7 +77,7 @@
 
     <Exec Command="$(CoverageReportGeneratorCommandLine) -reports:$(CoverageReportDir)\*.coverage.xml"
           ContinueOnError="ErrorAndContinue"
-          WorkingDirectory="$(ProjectDir)" />
+          WorkingDirectory="$(RepoRoot)" />
 
     <PropertyGroup>
       <CoverallsUploaderCommandLine>$(PackagesDir)coveralls.io.$(CoverallsUploaderVersion)\tools\coveralls.net.exe</CoverallsUploaderCommandLine>
@@ -86,7 +86,7 @@
 
     <Exec Command="$(CoverallsUploaderCommandLine) $(CoverallsUploaderOptions)"
           ContinueOnError="ErrorAndContinue"
-          WorkingDirectory="$(ProjectDir)"
+          WorkingDirectory="$(RepoRoot)"
           Condition="'$(UploadCoverallsData)'=='true'" />
 
   </Target>

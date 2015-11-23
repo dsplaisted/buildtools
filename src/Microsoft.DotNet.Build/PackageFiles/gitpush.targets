@@ -6,7 +6,7 @@
   <Target Name="GitPush">
     <GitPush
       Condition="'$(RemoteUri)'!=''"
-      RepositoryRoot="$(ProjectDir)"      
+      RepositoryRoot="$(RepoRoot)"      
       RemoteUri="$(RemoteUri)"
       RemoteUsername="$(RemoteUsername)"
       RemotePassword="$(RemotePassword)"

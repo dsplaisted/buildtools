@@ -11,6 +11,7 @@
   <!-- Build Tools Versions -->
   <PropertyGroup>
     <BuildToolsVersion>1.0.25-prerelease-00121</BuildToolsVersion>
+    <NuSpecReferenceGeneratorVersion>1.3.1</NuSpecReferenceGeneratorVersion>
     <DnxVersion>1.0.0-rc1-15838</DnxVersion>
     <DnxPackageName Condition="'$(DnxPackageName)' == '' and '$(OsEnvironment)'!='Unix'">dnx-coreclr-win-x86.$(DnxVersion)</DnxPackageName>
     <DnxPackageName Condition="'$(DnxPackageName)' == '' and '$(OsEnvironment)'=='Unix'">dnx-mono.$(DnxVersion)</DnxPackageName>
@@ -29,18 +30,23 @@
 
   <!-- Common repo directories -->
   <PropertyGroup>
-    <ProjectDir>$(MSBuildThisFileDirectory)</ProjectDir>
-    <SourceDir>$(ProjectDir)src/</SourceDir>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <SourceDir>$(RepoRoot)src/</SourceDir>
 
     <!-- Output directories -->
-    <BinDir Condition="'$(BinDir)'==''">$(ProjectDir)bin/</BinDir>
+    <BinDir Condition="'$(BinDir)'==''">$(RepoRoot)bin/</BinDir>
     <ObjDir Condition="'$(ObjDir)'==''">$(BinDir)obj/</ObjDir>
     <TestWorkingDir Condition="'$(TestWorkingDir)'==''">$(BinDir)tests/</TestWorkingDir>
     <PackagesOutDir Condition="'$(PackagesOutDir)'==''">$(BinDir)packages/</PackagesOutDir>
 
     <!-- Input Directories -->
-    <PackagesDir Condition="'$(PackagesDir)'==''">$(ProjectDir)packages/</PackagesDir>
+    <PackagesDir Condition="'$(PackagesDir)'==''">$(RepoRoot)packages/</PackagesDir>
     <ToolsDir Condition="'$(ToolsDir)'==''">$(PackagesDir)Microsoft.DotNet.BuildTools.$(BuildToolsVersion)/lib/</ToolsDir>
+
+    <!-- NuSpec.ReferenceGenerator targets use SolutionDir -->
+    <SolutionDir>$(SourceDir)</SolutionDir>
+
+    <NuSpecReferenceGeneratorDir>$([System.IO.Path]::Combine($(PackagesDir)NuSpec.ReferenceGenerator.$(NuSpecReferenceGeneratorVersion),"build", "dotnet"))$([System.IO.Path]::DirectorySeparatorChar)</NuSpecReferenceGeneratorDir>
   </PropertyGroup>
 
   <!-- list of nuget package sources passed to nuget.exe -->
