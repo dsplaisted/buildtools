@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata minClientVersion="2.8.1">
+    <id>Microsoft.DotNet.BuildTools.Bootstrapper</id>
+    <version>1.0.25-prerelease</version>
+    <title>Microsoft DotNet BuildTools</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkId=329770</licenseUrl>
+    <projectUrl>http://go.microsoft.com/fwlink/?LinkId=518631</projectUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <summary>.NET Core Framework Build Tools</summary>
+    <description>This package provides build-time support for the .NET Core Framework libraries.  You should not need to reference this package from your project.</description>
+    <copyright>Copyright © Microsoft Corporation</copyright>
+    <tags></tags>
+    <dependencies>
+     <!-- Do not add any dependencies to this package as we want to install it versionless (i.e. -ExcludeVersion) and we don't want the dependencies to be installed that way -->
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Microsoft.DotNet.Build.Bootstrapper\PackageFiles\RestoreBuildTools.ps1" target="lib" />
+    <file src="Microsoft.DotNet.Build.Bootstrapper\PackageFiles\project.json" target="lib" />
+    <file src="Microsoft.DotNet.Build.Bootstrapper\PackageFiles\DummyProgram.cs" target="lib" />
+  </files>
+</package>

@@ -62,9 +62,11 @@
     </PropertyGroup>
     <ItemGroup>
       <PackageFiles Include="$(SourceDir)Microsoft.DotNet.Build\PackageFiles\**\*.*" />
+      <BootstrapPackageFiles Include="$(SourceDir)Microsoft.DotNet.Build.Bootstrapper\PackageFiles\**\*.*" />
       <NuProjFiles Include="$(PackagesDir)NuProj\$(NuProjVersion)\tools\**\*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(OutputPath)\..\Microsoft.DotNet.Build\PackageFiles\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(BootstrapPackageFiles)" DestinationFolder="$(OutputPath)\..\Microsoft.DotNet.Build.BootStrapper\PackageFiles\%(RecursiveDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(NuProjFiles)" DestinationFolder="$(OutputPath)\NuProj\%(RecursiveDir)" SkipUnchangedFiles="true" />
   </Target>
 </Project>
