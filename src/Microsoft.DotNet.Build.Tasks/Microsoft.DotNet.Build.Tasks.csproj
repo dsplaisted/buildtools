@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), dir.props))\dir.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9AB674A0-AEF7-4539-8049-0406D2C7BB32}</ProjectGuid>
+    <ProjectGuid>{17C66BCE-EB35-44CA-893C-8AAFB67708E9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Microsoft.DotNet.Build.Tasks</RootNamespace>
     <AssemblyName>Microsoft.DotNet.Build.Tasks</AssemblyName>
@@ -60,6 +60,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), dir.targets))\dir.targets" />
+  
+  <Import Project="$(SourceDir)BuildValues.props"/>
+  <UsingTask TaskName="Microsoft.DotNet.Build.Tasks.UpdateProjectJson" AssemblyFile="$(OutputPath)\..\Microsoft.DotNet.Build.CloudTestTasks\Microsoft.DotNet.Build.CloudTestTasks.dll" />
+  
   <Target Name="AfterBuild">
     <PropertyGroup>
       <!-- This version should be kept up to date with project.json -->
@@ -73,5 +77,6 @@
     <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(OutputPath)\..\Microsoft.DotNet.Build\PackageFiles\%(RecursiveDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(BootstrapPackageFiles)" DestinationFolder="$(OutputPath)\..\Microsoft.DotNet.Build.BootStrapper\PackageFiles\%(RecursiveDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(NuProjFiles)" DestinationFolder="$(OutputPath)\NuProj\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <UpdateProjectJson ProjectJsonFile="$(OutputPath)\..\Microsoft.DotNet.Build.BootStrapper\PackageFiles\project.json" PackageName="Microsoft.DotNet.BuildTools" PackageVersion="1.0.25-prerelease-$(RevisionNumber)" />
   </Target>
 </Project>
