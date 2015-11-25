@@ -771,15 +771,28 @@ namespace Microsoft.DotNet.Build.Tasks
 
         private static string TryGetTargetPath(string file)
         {
-            var foldersAndFile = file.Split('\\').ToArray();
+            //  .NET Core doesn't have a way of getting all supported cultures.  So IsValidCultureString
+            //  was implemented (in this project) to check if a CultureInfo could be created with the
+            //  given name.  However, on Windows 10, this will succeed for any name that follows the
+            //  BCP 47 format.
 
-            for (int i = foldersAndFile.Length - 1; i > -1; i--)
-            {
-                if (CultureInfoCache.IsValidCultureString(foldersAndFile[i]))
-                {
-                    return Path.Combine(foldersAndFile.Skip(i).ToArray());
-                }
-            }
+            //  Since "lib" and "any" are valid culture strings according to the BCP 47 format, the below
+            //  code was causing the TargetPath to be under ie lib/dnxcore50, causing the files to be
+            //  copied to the wrong place.
+
+            //  For some discussion of GetCultures in .NET Core, see:
+            //  - https://github.com/dotnet/corefx/issues/1669
+            //  - https://github.com/Microsoft/msbuild/pull/213
+
+            //var foldersAndFile = file.Split('\\').ToArray();
+
+            //for (int i = foldersAndFile.Length - 1; i > -1; i--)
+            //{
+            //    if (CultureInfoCache.IsValidCultureString(foldersAndFile[i]))
+            //    {
+            //        return Path.Combine(foldersAndFile.Skip(i).ToArray());
+            //    }
+            //}
 
             // There is no culture-specific directory, so it'll go in the root
             return null;
