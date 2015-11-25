@@ -53,6 +53,7 @@
     <file src="Microsoft.Dotnet.Build.CloudTestTasks\PackageFiles\**\*.*" target="runtimes\any\native" />
     <file src="Microsoft.DotNet.Build\PackageFiles\**\*.*" target="runtimes\any\native" />
     <file src="Microsoft.DotNet.Build.Tasks\Microsoft.DotNet.Build.Tasks.dll" target="lib\dotnet" />
+    <file src="Microsoft.DotNet.Build.Tasks\Microsoft.DotNet.Build.Tasks.dll" target="lib\net45" />
     <file src="Microsoft.DotNet.Build.Tasks\NuProj\**\*.*" target="runtimes\any\native\NuProj" />
     <file src="BclRewriter\BclRewriter.exe" target="runtimes\any\native" />
     <file src="GenFacades\GenFacades.exe" target="runtimes\any\native" />
