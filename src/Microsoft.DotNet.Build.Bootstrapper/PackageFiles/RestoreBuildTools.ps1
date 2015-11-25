@@ -1,4 +1,4 @@
-param([string]$RepoRoot = "", [string]$DotNetCliBin = "", [string]$TargetFramework = "net45")
+param([string]$RepoRoot = "", [string]$DotNetCliBin = "", [string]$TargetFramework = "net46")
 
 $buildToolsProjectJson = "$PSScriptRoot\project.json"
 $packagesDir = $RepoRoot + '\packages\'

@@ -33,7 +33,7 @@ function BootstrapBuildTools
   },
   "frameworks": {
     "dnxcore50": { },
-    "net45": { }
+    "net46": { }
   }
 }
 "@
@@ -62,7 +62,7 @@ $dotnet = $dotnetCliBin + 'dotnet'
 $bootstrapperProjectJson = $repoRoot + '\bin\obj\bootstrap\project.json'
 $packagesDir = $repoRoot + '\packages\'
 $buildToolsVersion = '1.0.25-prerelease-01027'
-$targetFramework = 'net45'
+$targetFramework = 'net46'
 $BuildToolsDir = $packagesDir + 'Microsoft.DotNet.BuildTools\' + $targetFramework + '\'
 
 # Restore and Unzip dotnet cli if it doesn't exist
