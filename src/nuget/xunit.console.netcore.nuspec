@@ -21,7 +21,7 @@
       <group targetFramework="dotnet">
         <dependency id="System.Collections" version="4.0.10" />
         <dependency id="System.Collections.Concurrent" version="4.0.10" />
-        <dependency id="System.Console" version="4.0.0-beta-23426" />
+        <dependency id="System.Console" version="4.0.0-beta-23516" />
         <dependency id="System.Diagnostics.Debug" version="4.0.10" />
         <dependency id="System.Globalization" version="4.0.10" />
         <dependency id="System.IO" version="4.0.10" />

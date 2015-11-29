@@ -1,9 +1,10 @@
 {
   "dependencies": {
     "NuProj": "0.10.4-beta-gf7fc34e7d8",
-    "Microsoft.Build.Framework": "0.1.0-preview-00005",
-    "Microsoft.Build.Tasks.Core": "0.1.0-preview-00005",
-    "Microsoft.Build.Utilities.Core": "0.1.0-preview-00005",
+    "Microsoft.Build.Framework": "0.1.0-preview-00007",
+    "Microsoft.Build.Tasks.Core": "0.1.0-preview-00007",
+    "Microsoft.Build.Utilities.Core": "0.1.0-preview-00007",
+    "Microsoft.NETCore.Platforms": "1.0.1-beta-23516",
     "Microsoft.CSharp": "4.0.0",
     "System.Linq": "4.0.0",
     "System.Xml.XDocument": "4.0.0",

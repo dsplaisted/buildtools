@@ -8,9 +8,9 @@
   "dependencies": {
     "Microsoft.DotNet.BuildTools": "1.0.25-prerelease-00121",
     "Microsoft.NETCore.Platforms": "1.0.1-beta-23406",
-    "Microsoft.Build.Framework": "0.1.0-preview-00006",
-    "Microsoft.Build.Tasks.Core": "0.1.0-preview-00006",
-    "Microsoft.Build.Utilities.Core": "0.1.0-preview-00006"
+    "Microsoft.Build.Framework": "0.1.0-preview-00007",
+    "Microsoft.Build.Tasks.Core": "0.1.0-preview-00007",
+    "Microsoft.Build.Utilities.Core": "0.1.0-preview-00007"
   },
   "frameworks": {
     "dnxcore50": { },
