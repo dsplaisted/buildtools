@@ -15,8 +15,12 @@
     "dnxcore50": {
       "dependencies": {
         "Microsoft.NETCore.TestHost": "1.0.0-beta-23516",
+        "Microsoft.NETCore.Runtime": "1.0.1-beta-23516",
         "MSBuild": "0.1.0-preview-00007",
         "Microsoft.Build.Targets": "0.1.0-preview-00007",
+        "Microsoft.Net.Compilers.NetCore": "1.2.0-beta-20151118-02",
+        "Microsoft.Net.Compilers.Targets.NetCore": "0.1.3-dev",
+
 
         "Microsoft.Build": "0.1.0-preview-00007",        
         "System.IO.Compression": "4.1.0-beta-23516",
