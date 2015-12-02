@@ -4,19 +4,29 @@
   "compilationOptions": {
     "emitEntryPoint": true
   },
-
   "dependencies": {
-    "Microsoft.DotNet.BuildTools": "1.0.25-prerelease-00121",
+    "Microsoft.DotNet.BuildTools": "1.0.25-prerelease-01027",
     "Microsoft.NETCore.Platforms": "1.0.1-beta-23406",
     "Microsoft.Build.Framework": "0.1.0-preview-00007",
     "Microsoft.Build.Tasks.Core": "0.1.0-preview-00007",
     "Microsoft.Build.Utilities.Core": "0.1.0-preview-00007"
   },
   "frameworks": {
-    "dnxcore50": { },
-    "net46": { }
-  }  ,
+    "dnxcore50": {
+      "dependencies": {
+        "Microsoft.NETCore.TestHost": "1.0.0-beta-23516",
+        "MSBuild": "0.1.0-preview-00007",
+        "Microsoft.Build.Targets": "0.1.0-preview-00007",
+
+        "Microsoft.Build": "0.1.0-preview-00007",        
+        "System.IO.Compression": "4.1.0-beta-23516",
+        "System.Dynamic.Runtime": "4.0.11-beta-23516",
+        "System.Linq.Expressions": "4.0.11-beta-23516"
+      }
+    },
+    "net46": {}
+  },
   "runtimes": {
-    "win7-x64": { }
+    "win7-x64": {}
   }
 }
