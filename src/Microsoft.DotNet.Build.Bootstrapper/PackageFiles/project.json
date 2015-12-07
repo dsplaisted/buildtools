@@ -6,23 +6,23 @@
   },
   "dependencies": {
     "Microsoft.DotNet.BuildTools": "1.0.25-prerelease-01027",
-    "Microsoft.NETCore.Platforms": "1.0.1-beta-23406",
-    "Microsoft.Build.Framework": "0.1.0-preview-00007",
-    "Microsoft.Build.Tasks.Core": "0.1.0-preview-00007",
-    "Microsoft.Build.Utilities.Core": "0.1.0-preview-00007"
+    "Microsoft.NETCore.Platforms": "1.0.1-beta-23516",
+
+    "Microsoft.Build.Framework": "0.1.0-preview-00006",
+    "Microsoft.Build.Tasks.Core": "0.1.0-preview-00006",
+    "Microsoft.Build.Utilities.Core": "0.1.0-preview-00006"
   },
   "frameworks": {
     "dnxcore50": {
       "dependencies": {
         "Microsoft.NETCore.TestHost": "1.0.0-beta-23516",
         "Microsoft.NETCore.Runtime": "1.0.1-beta-23516",
-        "MSBuild": "0.1.0-preview-00007",
-        "Microsoft.Build.Targets": "0.1.0-preview-00007",
+        "MSBuild": "0.1.0-preview-00006",
+        "Microsoft.Build.Targets": "0.1.0-preview-00006",
         "Microsoft.Net.Compilers.NetCore": "1.2.0-beta-20151118-02",
-        "Microsoft.Net.Compilers.Targets.NetCore": "0.1.3-dev",
+        "Microsoft.Net.Compilers.Targets.NetCore": "0.1.4-dev",
 
-
-        "Microsoft.Build": "0.1.0-preview-00007",        
+        "Microsoft.Build": "0.1.0-preview-00006",
         "System.IO.Compression": "4.1.0-beta-23516",
         "System.Dynamic.Runtime": "4.0.11-beta-23516",
         "System.Linq.Expressions": "4.0.11-beta-23516"
